@@ -1,1 +1,1 @@
-OR code authentication (security system)
+OR code authentication(security system)
