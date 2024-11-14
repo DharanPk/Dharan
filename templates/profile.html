@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>Welcome, {{ user['username'] }}!</h1>
+    <ul>
+        <li>Email: {{ user['email'] }}</li>
+        <li>Phone Number: {{ user['phone_number'] }}</li>
+    </ul>
+
+    <form action="{{ url_for('send_otp') }}" method="POST">
+        <input type="hidden" name="phone_number" value="{{ user['phone_number'] }}">
+        <button type="submit">Send OTP</button>
+    </form>
+
+    <h2>Enter the OTP sent to your phone</h2>
+    <form method="POST">
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
